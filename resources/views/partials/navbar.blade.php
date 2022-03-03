@@ -13,12 +13,12 @@
                <li class="nav-item">
                    <a class="nav-link" href="/register">Register</a>
                </li>
-               {{-- <li class="nav-item">
+               <li class="nav-item">
                    <a class="nav-link" href="/login">Login</a>
-               </li> --}}
+               </li>
                @endguest
            </ul>
-           {{-- <span class="navbar-text">
+           <span class="navbar-text">
                @auth
                {{auth()->user()->name}}
                <form method="POST" action="/logout">
@@ -27,7 +27,7 @@
                    <button type="submit">Logout</a>
                </form>
                @endauth
-           </span> --}}
+           </span>
        </div>
    </div>
 </nav>
