@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('guest', ['except' => 'logout']);
+        $this->middleware('auth', ['only' => 'logout']);
+    }
+
     public function getRegisterForm()
     {
         return view('auth.register');
