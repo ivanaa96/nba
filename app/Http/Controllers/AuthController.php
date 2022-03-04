@@ -15,9 +15,15 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
-    public function register(StoreUserRequest $request)
+    public function register(Request $request)
     {
-        $data = $request->validated();
+        $data = [
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
+            'password_confirmation' => $request->input('password_confirmation'),
+        ];
+
         $data['password'] = Hash::make($data['password']);
 
         $user = User::create($data);
@@ -38,12 +44,12 @@ class AuthController extends Controller
             return redirect('/teams');
         } else {
             return view('auth.login', ['invalidCredentials' => true]);
-        } 
+        }
     }
 
     public function logout()
     {
         Auth::logout();
-        return redirect('auth.login');
+        return redirect('/login');
     }
 }
