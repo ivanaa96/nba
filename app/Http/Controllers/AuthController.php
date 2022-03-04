@@ -7,15 +7,14 @@ use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Verification;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+
 
 class AuthController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('guest', ['except' => 'logout']);
-        $this->middleware('auth', ['only' => 'logout']);
-    }
-
     public function getRegisterForm()
     {
         return view('auth.register');
@@ -27,8 +26,15 @@ class AuthController extends Controller
         $data['password'] = Hash::make($data['password']);
 
         $user = User::create($data);
-        Auth::login($user);
-        return redirect('/teams');
+
+        //izbacuje error: call to undefined method na m
+        // event(new Registered($user));
+
+        Mail::to($user)->send(
+            new Verification($user)
+        );
+
+        return redirect('/login');
     }
 
     public function getLoginForm()
@@ -52,4 +58,16 @@ class AuthController extends Controller
         Auth::logout();
         return redirect('/login');
     }
+
+    //pokusaj email verifikacije
+    // public function getEmailVerficationNotice()
+    // {
+    //     return view('auth.verify-email');
+    // }
+
+    // public function verifyEmail(EmailVerificationRequest $request)
+    // {
+    //     $request->fulfill();
+    //     return redirect('/teams');
+    // }
 }
