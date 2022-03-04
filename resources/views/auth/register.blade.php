@@ -79,17 +79,15 @@
 
    <div class="form-check">
       <input type="checkbox" 
-      name="terms_of_service" 
-      value="1" 
-      id="terms_of_service">
-      <label for="terms_of_service">I agree to terms and conditions.</label>
-      <br />
-      @error('terms_of_service')
-      <div class="alert alert-danger">
-         {{$message}}
-      </div>
+      class="form-check-input" 
+      id="terms_of_sevice" 
+      name="terms_of_sevice" 
+      value="1">
+      <label for="terms_of_sevice">I agree to terms and conditions</label>
+      @error('terms_of_sevice')
+        <div class="alert alert-danger">{{$message}}</div>
       @enderror
-   </div>
+    </div>
    <br/>
       <button type="submit" class="btn btn-primary">Register</button>
 </form>

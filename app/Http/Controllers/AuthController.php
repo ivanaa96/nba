@@ -15,15 +15,9 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
-    public function register(Request $request)
+    public function register(StoreUserRequest $request)
     {
-        $data = [
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'password' => $request->input('password'),
-            'password_confirmation' => $request->input('password_confirmation'),
-        ];
-
+        $data = $request->validated();
         $data['password'] = Hash::make($data['password']);
 
         $user = User::create($data);

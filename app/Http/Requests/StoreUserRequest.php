@@ -25,17 +25,16 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|email',
-            'password' => 'required|string|min:5|confirmed',
-            // 'password_confirmation' => 'required|same:password',
-            'terms_of_sevice' => 'accepted',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|confirmed|min:6',
+            'terms_of_sevice' => 'required|accepted',
         ];
     }
 
-    // public function messages()
-    // {
-    //     return [
-    //         'terms_of_sevice.accepted' => 'You must agree to our terms and conditions'
-    //     ];
-    // }
+    public function messages()
+    {
+        return [
+            'terms_of_sevice.required' => 'You must agree to our terms and conditions'
+        ];
+    }
 }
