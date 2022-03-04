@@ -5,6 +5,7 @@ use App\Http\Controllers\TeamController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\NewsController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 /*
@@ -40,3 +41,6 @@ Route::post('/teams/{team_id}/comments', [CommentController::class, 'store']);
 
 //    return redirect('/home');
 // })->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::get('/news', [NewsController::class, 'index']);
+Route::get('/news/{id}', [NewsController::class, 'show']);
