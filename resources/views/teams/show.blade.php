@@ -36,9 +36,7 @@
          rows="2"
          name="content"
        ></textarea>
-       @error('content')
-         <div class="alert alert-danger">{{$message}}</div>
-       @enderror
+       @include('partials.error-message', [ 'field' => 'content' ])
      </div>
      <br/>
      <button type="submit" class="btn btn-primary">Submit</button>

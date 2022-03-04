@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\NoInappropriateWordsRule;
 
 class StoreCommentRequest extends FormRequest
 {
@@ -24,7 +25,7 @@ class StoreCommentRequest extends FormRequest
     public function rules()
     {
         return [
-            'content' => 'string|min:10',
+            'content' => ['string', 'required', new NoInappropriateWordsRule],
         ];
     }
 }
