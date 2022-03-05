@@ -15,11 +15,6 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 class AuthController extends Controller
 {
-    public function getRegisterForm()
-    {
-        return view('auth.register');
-    }
-
     public function register(StoreUserRequest $request)
     {
         $data = $request->validated();
@@ -35,11 +30,6 @@ class AuthController extends Controller
         );
 
         return redirect('/login');
-    }
-
-    public function getLoginForm()
-    {
-        return view('auth.login');
     }
 
     public function login(Request $request)

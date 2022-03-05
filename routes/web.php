@@ -23,9 +23,10 @@ Route::get('/teams', [TeamController::class, 'index']);
 Route::get('/teams/{team}', [TeamController::class, 'show'])->name('team');
 Route::get('/players/{player}', [PlayerController::class, 'show'])->name('player');
 
-Route::get('/register', [AuthController::class, 'getRegisterForm']);
+//Za metode koje vracaju samo view, mozemo pisati ovaj shortcut. Prvi parametar je URL, a drugi je ime view-a. Ne moramo ovako:// Route::get('/register', [AuthController::class, 'getRegiLsterForm']);
+Route::view('/register', 'auth.register');
 Route::post('/register', [AuthController::class, 'register']);
-Route::get('/login', [AuthController::class, 'getLoginForm']);
+Route::view('/login', 'auth.login');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/logout', [AuthController::class, 'logout']);
 
