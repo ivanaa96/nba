@@ -44,3 +44,4 @@ Route::post('/teams/{team_id}/comments', [CommentController::class, 'store']);
 
 Route::get('/news', [NewsController::class, 'index']);
 Route::get('/news/{id}', [NewsController::class, 'show']);
+Route::get('/news/team/{teamName}', [NewsController::class, 'getNewsByTeam'])->name('newsForTeam');
