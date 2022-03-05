@@ -14,6 +14,10 @@
    <body class="antialiased">
         <div>
             @include('partials.navbar')
+                @if(session('status_message'))
+                    <div class="alert alert-info">{{session('status_message')}}</div>
+                    <br />
+                @endif
         </div>
 
         <div class="container-fluid">

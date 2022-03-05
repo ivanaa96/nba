@@ -3,6 +3,7 @@
        @auth
        <a class="navbar-brand" href="/teams">NBA teams</a>
        <a class="navbar-brand" href="/news">NBA news</a>
+        <a class="navbar-brand" href="/news/create">Publish article</a>
        @endauth
        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
            <span class="navbar-toggler-icon"></span>
