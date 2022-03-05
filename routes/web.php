@@ -23,14 +23,25 @@ Route::get('/teams', [TeamController::class, 'index']);
 Route::get('/teams/{team}', [TeamController::class, 'show'])->name('team');
 Route::get('/players/{player}', [PlayerController::class, 'show'])->name('player');
 
-//Za metode koje vracaju samo view, mozemo pisati ovaj shortcut. Prvi parametar je URL, a drugi je ime view-a. Ne moramo ovako:// Route::get('/register', [AuthController::class, 'getRegiLsterForm']);
-Route::view('/register', 'auth.register');
-Route::post('/register', [AuthController::class, 'register']);
-Route::view('/login', 'auth.login');
-Route::post('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/logout', [AuthController::class, 'logout']);
+Route::controller(AuthController::class)->group(function () {
+   //Za metode koje vracaju samo view, mozemo pisati ovaj shortcut. Prvi parametar je URL, a drugi je ime view-a. Ne moramo ovako:// Route::get('/register', [AuthController::class, 'getRegiLsterForm']); U kontroleru ne pisemo onda nikakve metode za dobavljanje view-a
+   Route::view('/register', 'auth.register');
+   Route::post('/register', 'register');
+   Route::view('/login', 'auth.login');
+   Route::post('/login', 'login')->name('login');
+   Route::post('/logout', 'logout');
+});
 
 Route::post('/teams/{team_id}/comments', [CommentController::class, 'store']);
+
+//Grupisanje kontrolera:
+Route::controller(NewsController::class)->group(function () {
+   Route::get('/news', 'index');
+   Route::get('/news/create',  'create');
+   Route::post('/news',  'store');
+   Route::get('/news/{id}', 'show')->name('news.show');
+   Route::get('/news/team/{teamName}', 'getNewsByTeam')->name('newsForTeam');
+});
 
 //sa Laravel dokumentacije za email verifikaciju:
 // Route::get('/email/verify', function () {
@@ -43,8 +54,7 @@ Route::post('/teams/{team_id}/comments', [CommentController::class, 'store']);
 //    return redirect('/home');
 // })->middleware(['auth', 'signed'])->name('verification.verify');
 
-Route::get('/news', [NewsController::class, 'index']);
-Route::get('/news/create', [NewsController::class, 'create']);
-Route::post('/news', [NewsController::class, 'store']);
-Route::get('/news/{id}', [NewsController::class, 'show']);
-Route::get('/news/team/{teamName}', [NewsController::class, 'getNewsByTeam'])->name('newsForTeam');
+//U slucaju da korisnik trazi rutu koja ne postoji ili nije dostupna. ovo uvek mora da ide na kraj, tj. posle svih ruta!
+Route::fallback(function () {
+   return "The page you are looking for is not available! Please, try later.";
+});
